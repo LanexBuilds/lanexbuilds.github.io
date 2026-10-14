@@ -930,77 +930,203 @@ const SUPABASE_URL = "";
 const SUPABASE_KEY = "";
 
 /* ============================================================
-   EDIT — fallback case studies
+   EDIT — Case Studies Data
    ============================================================ */
 const CASE_STUDIES = [
   {
-    slug: "from-manual-prospecting-to-a-0-lead-engine",
-    title: "From manual prospecting to a $0 lead engine",
-    date: "2026-10-12",
-    group: "Marketing & Agencies",
-    readTime: 6,
-    summary: "How a manual prospecting routine became a local, zero-cost workflow that does the research and drafting and leaves the sending decision to a person.",
-    result: "A scored, deduplicated lead list with draft emails, at $0 running cost and with a person approving every send.",
-    tools: ["n8n", "Google Sheets", "Ollama", "FastAPI"],
+    slug: "ai-critic-video-pipeline",
+    title: "How a Human-in-the-Loop Critic Cut Video Production Errors",
+    date: "2026-10-14",
+    group: "Content & Media",
+    summary: "Building a 7-stage video pipeline where an AI critic reviews and patches scripts before a human ever has to look at them.",
+    result: "80% reduction in manual QA time and a script grounded in verified sources.",
+    tools: ["n8n", "Google Gemini", "NVIDIA Nemotron", "Supabase"],
     body: [
-      { h: "Situation", p: [
-        "Finding prospects meant searching, opening websites, judging each business, finding a contact and writing a tailored message. Most of it was repetitive, and it consumed hours before any real conversation began.",
-        "The real cost wasn't the time spent searching — it was the decision fatigue that followed. By the time a first email was written, the energy that should have gone into the message was already spent on the process before it."
+      { h: "The Challenge", p: [
+        "Generating a video with AI is easy; generating a good one that doesn't hallucinate facts or wander off-topic requires constant human supervision.",
+        "The bottleneck was never the AI generation itself; it was the manual review cycle between every step. By the time the script reached the voiceover stage, a human had already spent hours reviewing and correcting it."
       ]},
-      { h: "What I did", p: [
-        "I mapped the process and split it into steps that need judgement and steps that don't. The first group stayed with a person. The second group became the workflow.",
-        "The engine now handles searching, filtering, deduplication, website analysis, scoring, contact discovery and first-draft writing. Every lead lands in one organised row, ready to review."
+      { h: "The Solution", p: [
+        "I built a pipeline where the writer AI and the critic AI are completely separate. The writer generates a draft, and the critic checks it against the source material.",
+        "The critic either approves the script or sends back specific line edits. The writer applies the patches and resubmits. Only if the critic fails repeatedly does a human get flagged."
       ]},
-      { h: "Design choices", list: [
+      { h: "Design Decisions", list: [
+        "Separated the Writer AI from the Critic AI to prevent bias.",
+        "Used retries with adjusted input before escalating to a human.",
+        "Logged every critic score and patch for full traceability.",
+        "Implemented a kill switch to stop the pipeline cleanly if needed."
+      ]},
+      { h: "Outcome", p: [
+        "The system now handles the entire script generation and QA process autonomously. A human only sees jobs that fail the final automated check, reducing manual QA time by approximately 80%."
+      ]}
+    ]
+  },
+  {
+    slug: "zero-cost-lead-generation-engine",
+    title: "Zero-Cost B2B Lead Generation with Local AI",
+    date: "2026-10-14",
+    group: "Sales & Marketing",
+    summary: "How to build a fully functional lead scraping, scoring, and drafting engine that runs on local hardware for $0 in monthly API costs.",
+    result: "A scored, deduplicated lead list with draft emails at $0 running cost.",
+    tools: ["n8n", "Ollama", "FastAPI", "Google Sheets"],
+    body: [
+      { h: "The Challenge", p: [
+        "Most lead generation tools charge hundreds of dollars a month, and using cloud AI (like GPT-4) to analyze hundreds of websites adds up quickly. We needed a way to find, scrape, analyze, and draft outreach without racking up costs.",
+        "The real cost wasn't the time spent searching; it was the decision fatigue that followed. By the time a first email was written, the energy that should have gone into the message was already spent on the process before it."
+      ]},
+      { h: "The Solution", p: [
+        "The engine now handles searching, filtering, deduplication, website analysis, scoring, contact discovery and first-draft writing. Every lead lands in one organised row, ready to review.",
+        "A local Ollama model reads the scraped text and identifies specific business weaknesses. Leads are scored, and the local AI drafts a highly personalized outreach email."
+      ]},
+      { h: "Design Decisions", list: [
         "Everything runs locally on open-source models, so cost doesn't grow with volume.",
         "Strong early filters remove junk before any AI time is spent on it.",
         "Duplicate protection across runs, so no lead is ever processed twice.",
         "Drafts are never sent automatically. A person always decides."
       ]},
-      { h: "What broke", p: [
-        "The first version was too eager. It scraped every page it could reach, including directory listings and stale content, and burned hours of compute on noise. The fix was a hard content-length threshold and a blocklist of known directory patterns, applied before any AI step runs.",
-        "The second version had the opposite problem: the filter was so aggressive it dropped legitimate small-business sites with thin content. The final version uses a threshold based on the number of readable paragraphs, not total character count."
-      ]},
       { h: "Outcome", p: [
         "A repeatable engine that turns a short search brief into a reviewed list of scored leads with ready-to-edit drafts. Running cost is zero. The person is only involved at the final decision."
-      ]},
-      { h: "Takeaway", p: [
-        "The biggest saving came from deciding what to discard early, not from using a bigger model. The filtering stages do more work for the outcome than the AI stage does."
       ]}
     ]
   },
   {
-    slug: "cutting-research-workflow-from-hours-to-minutes",
-    title: "Cutting a research workflow from hours to minutes",
-    date: "2026-09-28",
-    group: "Content",
-    readTime: 5,
-    summary: "A manual research-to-script process, rebuilt as a pipeline with quality gates at every stage. What used to take an afternoon now runs in the background.",
-    result: "Research, verification and first-draft scripting for a topic completed in under ten minutes, with a critic stage catching unsupported claims before they reach the script.",
-    tools: ["n8n", "Gemini", "Supabase"],
+    slug: "48-hour-publisher",
+    title: "The 48-Hour Publisher: Resilient Content Automation",
+    date: "2026-10-14",
+    group: "Content & Media",
+    summary: "Building a portfolio that grows itself. A Slack-to-Supabase pipeline that drafts, reviews, and publishes content even if the automation layer goes offline.",
+    result: "A resilient publishing system with a 48-hour auto-publish fallback window.",
+    tools: ["n8n", "Supabase", "Slack Bolt", "Notion API"],
     body: [
-      { h: "Situation", p: [
-        "Researching a topic properly meant opening dozens of tabs, taking notes, cross-checking facts, then writing a script from those notes. It was the kind of work that felt productive but couldn't be interrupted — a single distraction and the thread was gone."
+      { h: "The Challenge", p: [
+        "Portfolios go stale because updating them is a manual chore. But fully automated publishing is risky—a hallucinating AI shouldn't be allowed to post anything it wants without a human safety net.",
+        "The system needed to be resilient. If the automation layer (n8n) went down, the publishing schedule shouldn't break."
       ]},
-      { h: "What I did", p: [
-        "I broke the process into stages that could each fail independently and be retried. Sources are searched and filtered first. Claims are extracted from the sources, then verified against them. A script is written only from verified claims.",
-        "The critic stage reviews the script against the source material. If a line isn't backed by a source, it gets flagged and either revised or removed."
+      { h: "The Solution", p: [
+        "A system where you submit a raw bulleted idea via a simple Slack message. The engine drafts a full case study or blog post and saves it to Supabase.",
+        "The draft is assigned a publish date 48 hours in the future. A Slack card appears with Approve, Reject, or Hold 7 Days buttons. If the user does nothing, the database timer automatically publishes it after 48 hours."
       ]},
-      { h: "Design choices", list: [
-        "Sources are ranked by credibility before any AI step runs on them.",
-        "Claims are extracted verbatim, with a source citation attached.",
-        "The script stage cannot see anything except the verified claims list.",
-        "A separate critic checks the output before it moves forward."
-      ]},
-      { h: "What broke", p: [
-        "The earliest version let the script stage see the raw sources directly. It was faster, but it hallucinated numbers that appeared in the sources with different context. The fix was to extract claims as structured data first, then pass only those to the writer.",
-        "The critic was also too lenient at first. It approved claims that were technically supported but taken out of context. Tightening the prompt to require direct paraphrase fixed it."
+      { h: "Design Decisions", list: [
+        "Put the 48-hour timer in the database, not in n8n, so it works even if n8n is down.",
+        "Supabase is the single source of truth; Notion is just a mirror.",
+        "One writer per field to prevent infinite sync loops.",
+        "A confidence score, not pass/fail, so a broken critic is visible instead of silent."
       ]},
       { h: "Outcome", p: [
-        "A research and first-draft pipeline that completes in under ten minutes and produces a script grounded in verifiable source material. A person still reviews the final output, but most of the tedium is gone."
+        "A reliable, always-on publishing engine that keeps the portfolio growing without manual intervention, while still giving the human final approval over the content."
+      ]}
+    ]
+  },
+  {
+    slug: "high-frequency-market-scraper",
+    title: "Building a High-Frequency Market Scraper",
+    date: "2026-10-14",
+    group: "Data & Engineering",
+    summary: "Processing 10,000+ marketplace listings every 30 minutes using n8n, PostgreSQL, and custom JavaScript normalization logic.",
+    result: "10,000+ listings processed per run, staying within 300-second task limits.",
+    tools: ["n8n", "PostgreSQL", "JavaScript", "Gameflip API"],
+    body: [
+      { h: "The Challenge", p: [
+        "Marketplaces have strict rate limits and complex data structures. A naive scraper will get IP-banned or time out due to n8n's 300-second execution limit.",
+        "The data also comes in messy formats (integer cents, inconsistent titles) that need cleaning before analysis."
       ]},
-      { h: "Takeaway", p: [
-        "Separating the extraction stage from the writing stage made the biggest difference. When the writer can only see structured claims, it can't invent details from context it doesn't have."
+      { h: "The Solution", p: [
+        "Implemented a rotating, time-boxed fetch system that only searches a slice of the catalog per run to stay under 300 seconds.",
+        "Added a fetch lock to prevent overlapping runs. Built a custom JavaScript normalizer that uses regex to map messy titles to a canonical pet database.",
+        "Handled price conversion (turning integer cents into readable dollars) and used SQL UPSERTs to update existing rows instead of creating duplicates."
+      ]},
+      { h: "Design Decisions", list: [
+        "Time-boxed fetching to respect n8n's execution limits.",
+        "Aggressive filtering of 'junk' items using regex.",
+        "Cached seller data for 6 hours to reduce API calls on repeat sellers.",
+        "Stored raw payloads as JSONB for full traceability."
+      ]},
+      { h: "Outcome", p: [
+        "A robust data ingestion pipeline that processes thousands of listings per run without getting blocked, providing a clean, normalized dataset for pricing analysis."
+      ]}
+    ]
+  },
+  {
+    slug: "trust-gates-troll-filters",
+    title: "Trust Gates and Troll Filters: Cleaning Up Marketplace Data",
+    date: "2026-10-14",
+    group: "Data & Engineering",
+    summary: "Using statistical outlier trimming and seller reputation scoring to calculate accurate market prices despite bait and troll listings.",
+    result: "Accurate market medians calculated despite up to 40% noisy data.",
+    tools: ["JavaScript", "PostgreSQL", "n8n"],
+    body: [
+      { h: "The Challenge", p: [
+        "Marketplaces are full of noise. Sellers list items at $0.01 to bait clicks, or list them at $9,000 to troll the market. If your pricing engine simply averages these, your prices will be completely wrong.",
+        "The challenge was to filter out bad actors without discarding legitimate market data."
+      ]},
+      { h: "The Solution", p: [
+        "Fetched seller profiles and calculated a strict 'trust gate' based on feedback percentage, total reviews, and account age. Filtered out any sellers who didn't meet minimum trust thresholds.",
+        "Grouped listings by item tier to prevent price inversion errors. Applied a median-based outlier trimmer to cut off the top 25% and bottom 25% of prices."
+      ]},
+      { h: "Design Decisions", list: [
+        "Trust gates are tiered (high-value items require stricter seller verification).",
+        "Anti-troll title filtering (looking for words like 'read desc', 'bundle', 'combo').",
+        "Tier inversion logic prevents a Mega item from being priced lower than a Regular item.",
+        "One price per seller enforced to prevent a single seller from skewing the market."
+      ]},
+      { h: "Outcome", p: [
+        "A reliable pricing engine that ignores noise and produces accurate market medians. Suspicious price jumps are flagged for human review instead of automatically applied."
+      ]}
+    ]
+  },
+  {
+    slug: "multi-channel-distribution-engine",
+    title: "One Video, Four Platforms: Building a Distribution Engine",
+    date: "2026-10-14",
+    group: "Content & Media",
+    summary: "Automating the extraction, formatting, and scheduling of content across YouTube, Facebook, TikTok, and Instagram without manual reposting.",
+    result: "Zero manual copy-pasting and staggered native scheduling across 4 major platforms.",
+    tools: ["n8n", "Groq", "Whisper", "FFmpeg", "YouTube API", "Facebook Graph API"],
+    body: [
+      { h: "The Challenge", p: [
+        "Publishing to multiple social media platforms is tedious. Each platform has different caption limits, hashtag cultures, and scheduling APIs. Doing this manually takes hours and often gets delayed, hurting algorithmic reach."
+      ]},
+      { h: "The Solution", p: [
+        "Monitors a Google Drive folder for new raw video files. Extracts audio and transcribes it using a local Whisper model.",
+        "Uses Groq (GPT-OSS) to generate platform-specific captions (punchy for YouTube, trendy for TikTok, conversational for Facebook).",
+        "Uploads the video natively to each platform via their APIs and sets native scheduled times to stagger the releases across the day."
+      ]},
+      { h: "Design Decisions", list: [
+        "Staggered release times to prevent cross-platform cannibalization.",
+        "Platform-specific AI prompting to match the audience's expectation.",
+        "Strict rate-limit handling to avoid API bans.",
+        "Human-in-the-loop via Google Sheets where statuses are tracked."
+      ]},
+      { h: "Outcome", p: [
+        "A seamless distribution pipeline that takes a single raw video file and publishes it natively to four different platforms with tailored captions and optimal scheduling."
+      ]}
+    ]
+  },
+  {
+    slug: "automated-seo-editor",
+    title: "The Automated SEO Editor: Enforcing Quality Before Publishing",
+    date: "2026-10-14",
+    group: "Content & Media",
+    summary: "Using an automated SEO gate to reject AI-generated blog posts that lack structure, keyword focus, or original insight.",
+    result: "Zero AI fluff published, with all failed posts logged for human review.",
+    tools: ["JavaScript", "NVIDIA Nemotron", "Cloudflare Flux", "Blogger API"],
+    body: [
+      { h: "The Challenge", p: [
+        "AI is great at generating text, but it often produces 'fluff'—generic introductions, repetitive conclusions, and keyword stuffing. Publishing this raw content hurts SEO and damages brand credibility."
+      ]},
+      { h: "The Solution", p: [
+        "The AI writes the full blog post and generates a hero image. Before creating a draft, the text passes through a strict SEO Gate script.",
+        "The script validates: word count (>500), heading count (>=3 h2 tags), and image alt-text. It checks for banned AI phrases (e.g., 'delve', 'in today's world', 'game-changer').",
+        "It verifies the focus keyword appears in the title and early paragraphs. Only if all checks pass is the post scheduled to Blogger."
+      ]},
+      { h: "Design Decisions", list: [
+        "Hard-coded quality gates to stop AI hallucination.",
+        "Randomized tone and format prompts to keep content from sounding repetitive.",
+        "Failed posts are logged in a Google Sheet with the exact failed check for easy debugging.",
+        "Automated image generation ensures every post has a unique hero image."
+      ]},
+      { h: "Outcome", p: [
+        "A self-publishing blog engine that only outputs high-quality, SEO-optimized content. Any posts that fail the checks are set aside for human review, ensuring the live site is never polluted with low-effort AI content."
       ]}
     ]
   }
@@ -1152,7 +1278,6 @@ function reveal(el, delay) {
 /* ============================================================
    ROUTING
    Post URLs use the form: index-casestudies.html#/case-studies/<slug>
-   Reloading / sharing that URL resolves to the single view.
    ============================================================ */
 const POST_HASH_PREFIX = "#/case-studies/";
 
@@ -1173,7 +1298,7 @@ function goToPost(slug) {
 }
 
 /* ============================================================
-   DATA
+   DATA HELPERS
    ============================================================ */
 let allItems = CASE_STUDIES.slice();
 
@@ -1410,7 +1535,6 @@ function renderSingle(item, allSorted) {
   const prevWrap = $("#r-prev-wrap"), nextWrap = $("#r-next-wrap");
   prevWrap.replaceChildren(); nextWrap.replaceChildren();
 
-  // Prev tile — fixed: the old code built a detached node and appended null.
   if (idx > 0) {
     const prev = allSorted[idx - 1];
     const a = document.createElement("a");
