@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Projects — Lan Mislang</title>
-<meta name="description" content="Three automation systems: a research-to-video pipeline, a lead-generation engine, and an auto-publishing portfolio.">
+<meta name="description" content="Five automation systems: a video pipeline, a lead-gen engine, an auto-publisher, a market analyzer, and a multi-platform content engine.">
 <meta property="og:title" content="Projects — Lan Mislang">
-<meta property="og:description" content="Three systems that keep people only on the decisions that matter.">
+<meta property="og:description" content="Five systems that keep people only on the decisions that matter.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#F2F5F8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='11' width='10' height='10' rx='2.5' fill='none' stroke='%230A1F33' stroke-width='2'/%3E%3Crect x='20' y='11' width='10' height='10' rx='2.5' fill='%230A1F33'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23C9480D'/%3E%3C/svg%3E">
@@ -719,7 +719,7 @@ html.nm .rv{opacity:1!important;transform:none!important}
   <div class="page-intro-in">
     <div>
       <span class="eyebrow">01 — Selected work</span>
-      <h1 id="intro-h1">Three systems, one idea.</h1>
+      <h1 id="intro-h1">Five systems, one idea.</h1>
     </div>
     <p>Each of these automates a process end to end. Each one keeps a person in the loop, but only on the decision that matters. Open any project to see how it works and where I stay involved.</p>
   </div>
@@ -729,6 +729,8 @@ html.nm .rv{opacity:1!important;transform:none!important}
   <a class="jump" href="#video-pipeline"><span class="dot"></span>Research-to-video pipeline</a>
   <a class="jump" href="#lead-engine"><span class="dot"></span>Lead-generation engine</a>
   <a class="jump" href="#blog-engine" data-state="wip"><span class="dot"></span>Portfolio publisher</a>
+  <a class="jump" href="#price-engine"><span class="dot"></span>Market price engine</a>
+  <a class="jump" href="#content-engine"><span class="dot"></span>Multi-platform auto-poster</a>
 </nav>
 
 <!-- ============================================================
@@ -915,6 +917,134 @@ html.nm .rv{opacity:1!important;transform:none!important}
         <div class="review">
           <h3>Where a person steps in</h3>
           <p>Every draft gets a Slack approval card. You can publish, reject, or hold — or let the 48-hour timer do it for you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECT 04 — Market Price Engine
+     ============================================================ -->
+<section class="project" id="price-engine" data-state="live" data-open="false">
+  <div class="project-strip">
+    <div class="project-strip-main">
+      <div class="project-num">
+        <span class="n">04</span>
+        <span class="bar"></span>
+      </div>
+      <h2>Gameflip Market Analyzer & Price Engine</h2>
+      <p class="lede">A high-frequency market intelligence engine that scrapes thousands of listings, evaluates seller trust, and calculates dynamic pricing with anti-troll safeguards.</p>
+    </div>
+    <div class="project-meta">
+      <span class="project-status"><span class="pip"></span>Live</span>
+      <button type="button" class="project-toggle" aria-expanded="false">
+        <span class="ttl">Open</span>
+        <span class="chev" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="project-stats">
+      <div class="stat"><span class="num" data-count="10000" data-suffix="+">10000+</span><span class="lbl">Listings processed per run</span></div>
+      <div class="stat"><span class="num" data-count="6" data-suffix="h">6h</span><span class="lbl">Seller profile cache TTL</span></div>
+      <div class="stat"><span class="num" data-count="3">3</span><span class="lbl">Anti-troll safeguards</span></div>
+    </div>
+    <div class="project-cols">
+      <div>
+        <h3 class="eyebrow-like">The problem</h3>
+        <p>Monitoring a marketplace for pricing anomalies and genuine seller trust is impossible to do manually. Bait prices, troll listings, and untrusted sellers distort the market, making it hard to price items accurately or safely.</p>
+        <h3 class="eyebrow-like">How it works</h3>
+        <ol class="flow">
+          <li><span class="ft">Fetch Listings: Rotates through pet catalog searches, fetching up to 400 listings per run.</span></li>
+          <li><span class="ft">Normalize: Uses regex to extract canonical item names, drops junk, and handles price conversions (cents to dollars).</span></li>
+          <li><span class="ft">Seller Profiling: Fetches Gameflip profile data (feedback, account age, ID verification) with a 6-hour cache and TOTP authentication.</span></li>
+          <li><span class="ft">Market Analysis: Aggregates listings by item and tier (Regular, FR, NFR, MFR), filtering out junk and troll titles.</span></li>
+          <li><span class="ft">Trust Gate: Rejects sellers with low feedback percentages, too few reviews, or new accounts.</span></li>
+          <li><span class="ft">Statistical Trimming: Uses median-based filtering to remove low-bait and high-troll outliers.</span></li>
+          <li><span class="ft">Price Calculation: Applies dynamic markups (10% or 13%) based on market value and validates against historical anchors.</span></li>
+        </ol>
+      </div>
+      <div>
+        <h3>Built with</h3>
+        <ul class="chips">
+          <li>n8n</li><li>PostgreSQL</li><li>JavaScript</li><li>Gameflip API</li><li>TOTP Auth</li>
+        </ul>
+        <h3>Design decisions</h3>
+        <ul class="decisions">
+          <li>Cached seller profiles to avoid API rate limits.</li>
+          <li>One price per seller to prevent market skewing.</li>
+          <li>Strict tier inversion checks (a higher tier can never be cheaper than a lower tier).</li>
+          <li>Automated alert logging for suspicious price jumps.</li>
+        </ul>
+        <div class="review">
+          <h3>Where a person steps in</h3>
+          <p>Alerts for suspicious price jumps are logged for manual review. The system handles the math and data fetching, but a person decides if a market anomaly is real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECT 05 — Multi-Platform Auto-Poster
+     ============================================================ -->
+<section class="project" id="content-engine" data-state="live" data-open="false">
+  <div class="project-strip">
+    <div class="project-strip-main">
+      <div class="project-num">
+        <span class="n">05</span>
+        <span class="bar"></span>
+      </div>
+      <h2>Multi-Platform Content Auto-Poster</h2>
+      <p class="lede">An end-to-end content pipeline that transforms raw video into fully formatted, SEO-optimized posts across YouTube, Facebook, and Blogger.</p>
+    </div>
+    <div class="project-meta">
+      <span class="project-status"><span class="pip"></span>Live</span>
+      <button type="button" class="project-toggle" aria-expanded="false">
+        <span class="ttl">Open</span>
+        <span class="chev" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="project-stats">
+      <div class="stat"><span class="num" data-count="4">4</span><span class="lbl">Target platforms</span></div>
+      <div class="stat"><span class="num" data-count="7">7</span><span class="lbl">Pipeline stages</span></div>
+      <div class="stat"><span class="num" data-count="1">1</span><span class="lbl">Source video input</span></div>
+    </div>
+    <div class="project-cols">
+      <div>
+        <h3 class="eyebrow-like">The problem</h3>
+        <p>Creating content for multiple platforms means writing captions, tags, and blog posts for each one manually. It's repetitive, time-consuming, and leads to inconsistency across channels.</p>
+        <h3 class="eyebrow-like">How it works</h3>
+        <ol class="flow">
+          <li><span class="ft">Discovery: Watches Google Drive folders for new video files.</span></li>
+          <li><span class="ft">Transcription: Extracts audio with FFmpeg and transcribes locally using Whisper.</span></li>
+          <li><span class="ft">Caption Generation: Uses Groq (GPT-OSS) to generate platform-specific captions and hashtags (YouTube, TikTok, IG, FB).</span></li>
+          <li><span class="ft">YouTube Scheduling: Uploads video, sets thumbnail, and schedules natively.</span></li>
+          <li><span class="ft">Facebook Scheduling: Uploads video and schedules natively to the correct Page.</span></li>
+          <li><span class="ft">Blog Generation: NVIDIA Nemotron writes a full blog post from the transcript.</span></li>
+          <li><span class="ft">Image Generation: Cloudflare Flux creates cinematic images for the blog.</span></li>
+          <li><span class="ft">SEO Gate: Validates word count, headings, keywords, and banned words.</span></li>
+          <li><span class="ft">Blogger Scheduling: Creates a draft and schedules it, embedding the YouTube video.</span></li>
+        </ol>
+      </div>
+      <div>
+        <h3>Built with</h3>
+        <ul class="chips">
+          <li>n8n</li><li>Groq</li><li>NVIDIA Nemotron</li><li>Cloudflare AI</li><li>Blogger API</li><li>YouTube API</li><li>Facebook Graph API</li><li>Whisper</li><li>FFmpeg</li>
+        </ul>
+        <h3>Design decisions</h3>
+        <ul class="decisions">
+          <li>Human-in-the-loop via Google Sheets (statuses are tracked, errors logged).</li>
+          <li>Strict SEO gate prevents AI fluff from being published.</li>
+          <li>Dynamic tags and hashtags generated from transcript keywords.</li>
+          <li>Native scheduling APIs used for each platform to ensure maximum reach.</li>
+        </ul>
+        <div class="review">
+          <h3>Where a person steps in</h3>
+          <p>Every video, caption, and blog post is logged in a Google Sheet. A person can review the queue and intervene before the automated scheduling takes over.</p>
         </div>
       </div>
     </div>
@@ -1308,7 +1438,9 @@ function buildPalette() {
   [
     ["Research-to-video pipeline", "video-pipeline", "video research script voiceover render"],
     ["Lead-generation engine", "lead-engine", "lead prospecting outreach email local business"],
-    ["Portfolio publisher", "blog-engine", "blog case study publish slack notion supabase"]
+    ["Portfolio publisher", "blog-engine", "blog case study publish slack notion supabase"],
+    ["Market price engine", "price-engine", "gameflip market price analyzer scraping postgres"],
+    ["Multi-platform auto-poster", "content-engine", "youtube facebook blogger auto post content pipeline"]
   ].forEach(([l, id, kw]) => out.push({
     k: "Project", l, kw: kw,
     run: () => { history.pushState(null, "", "#" + id); openFromHash(); }
