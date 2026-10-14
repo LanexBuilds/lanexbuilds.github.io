@@ -902,7 +902,7 @@ const SUPABASE_URL = "";
 const SUPABASE_KEY = "";
 
 /* ============================================================
-   EDIT — fallback posts
+   EDIT — fallback posts (10 total)
    ============================================================ */
 const POSTS = [
   {
@@ -962,6 +962,225 @@ const POSTS = [
         "You get the speed of automation with the judgement of a person still in the loop. And you get the ability to see what the system is doing, which is the only way to make it better."
       ]}
     ]
+  },
+  {
+    slug: "anti-troll-data-strategy",
+    title: "How to calculate market prices when the data is 40% garbage",
+    date: "2026-09-28",
+    topics: ["Data", "Engineering", "Lessons learned"],
+    readTime: 5,
+    summary: "You cannot just average a marketplace. Here is how I used trust gates and outlier trimming to filter noise from a high-frequency scraper.",
+    tools: ["JavaScript", "PostgreSQL", "Statistics"],
+    body: [
+      { p: [
+        "When you build a system that scrapes a marketplace to calculate the average price of an item, the first thing you learn is that you cannot trust the raw data. At all."
+      ]},
+      { h: "The Noise Problem", p: [
+        "Marketplaces are full of bait. Sellers list a $50 item for $0.01 to get clicks. Trolls list a $20 item for $9,000 because they think it's funny. If your system simply averages all the listings, your calculated price will be completely useless.",
+        "You have to assume that a significant percentage of your incoming data is actively trying to trick you."
+      ]},
+      { h: "Building a Trust Gate", p: [
+        "The first line of defense is not the price. It is the seller. I built a 'trust gate' that fetches the seller's profile before looking at their listing.",
+        "If a seller has less than 95% positive feedback, fewer than 20 reviews, or an account younger than 30 days, their listing is discarded immediately. They don't get to influence the market price."
+      ]},
+      { h: "Statistical Trimming", p: [
+        "After filtering sellers, I group the remaining prices and apply a two-pass median-based outlier trimmer. It cuts off the bottom 25% (the bait) and the top 25% (the trolls).",
+        "It also enforces one price per seller. If a single seller lists 50 of the same item, they only count as one data point. Otherwise, one aggressive seller could skew the entire market."
+      ]},
+      { h: "The Takeaway", p: [
+        "The hardest part of data engineering is rarely getting the data. It is cleaning it. The filtering logic in this system does more work for the final outcome than the pricing logic does."
+      ]}
+    ]
+  },
+  {
+    slug: "why-i-use-local-ai-models",
+    title: "Why I run AI locally (and when I don't)",
+    date: "2026-09-15",
+    topics: ["AI", "Tools", "Automation"],
+    readTime: 4,
+    summary: "Cloud AI is incredible, but it scales in cost. Here is how I use local models like Ollama for zero-cost automation, and when I still pay for the cloud.",
+    tools: ["Ollama", "Gemini", "n8n"],
+    body: [
+      { p: [
+        "When you are building a personal automation project — like a lead generation engine or a content pipeline — the biggest danger is the API bill. Using GPT-4 to analyze 100 websites is fine. Analyzing 10,000 websites will bankrupt you."
+      ]},
+      { h: "The Case for Local", p: [
+        "This is why I run a lot of my heavy-lifting AI tasks locally using Ollama. I can run a model like Llama 3 or Mistral directly on my own machine.",
+        "The cost per token drops to zero. The electricity cost is negligible. It does not need an internet connection. And for tasks like summarizing scraped text or extracting specific details from a website, the quality is more than good enough."
+      ]},
+      { h: "The Case for Cloud", p: [
+        "But I do not use local models for everything. For complex reasoning, writing high-quality blog posts, or coding, I still use cloud models like Google Gemini or NVIDIA Nemotron.",
+        "The difference in quality is noticeable. Cloud models are simply smarter. They can follow intricate instructions and handle edge cases that smaller local models will fumble."
+      ]},
+      { h: "The Hybrid Approach", p: [
+        "The sweet spot is a hybrid system. Use local models for the 80% of tasks that are simple and high-volume. Use cloud models for the 20% of tasks that require deep reasoning or high-quality output.",
+        "In my content pipeline, a local model transcribes and filters. A cloud model writes the final script. You get speed and zero cost where it matters, and quality where you need it."
+      ]}
+    ]
+  },
+  {
+    slug: "48-hour-publisher-resilient-automation",
+    title: "The 48-Hour Publisher: Building automation that survives failure",
+    date: "2026-08-30",
+    topics: ["Automation", "Design", "Systems thinking"],
+    readTime: 4,
+    summary: "n8n is reliable, but it is not always running. Here is how I built a publishing pipeline that works even when the automation layer is offline.",
+    tools: ["n8n", "Supabase", "PostgreSQL"],
+    body: [
+      { p: [
+        "One of the biggest mistakes I see in automation is putting the entire system in the automation tool. If n8n goes down, the whole process stops.",
+        "When I built the auto-publishing engine for this portfolio, I wanted it to be resilient. I wanted it to keep running even if I turned my computer off."
+      ]},
+      { h: "The Database is the Boss", p: [
+        "The core of the system is not n8n. It is the Supabase database. When a draft is created, it is assigned a 'publish_at' timestamp that is 48 hours in the future.",
+        "That timestamp lives in the database. It is a permanent record. It does not matter if n8n is running or not."
+      ]},
+      { h: "The Fallback Mechanism", p: [
+        "The n8n workflow checks the database every hour to see if anything needs to be published. But if n8n is offline, the database itself has a trigger that can push the content live.",
+        "This means the 48-hour timer is absolute. The content will publish itself whether the automation is running or not."
+      ]},
+      { h: "Why this matters", p: [
+        "This makes the system trustworthy. I can submit an idea, close my laptop, and go to sleep. I know that 48 hours later, the content will be live — unless I explicitly intervene to stop it.",
+        "Building automation is not just about making things fast. It is about making things reliable."
+      ]}
+    ]
+  },
+  {
+    slug: "don't-automate-a-broken-process",
+    title: "Don't automate a broken process",
+    date: "2026-08-12",
+    topics: ["Systems thinking", "Lessons learned"],
+    readTime: 3,
+    summary: "The engineering mindset says: understand the problem before you build the solution. This applies to business processes too.",
+    tools: ["Systems thinking"],
+    body: [
+      { p: [
+        "The most common mistake people make when they start automating is trying to automate a process that shouldn't exist in the first place.",
+        "This is like putting a faster engine in a car with square wheels. You are not fixing the problem; you are just making the problem happen faster."
+      ]},
+      { h: "Map the Process First", p: [
+        "Before I write a single node in n8n, I always map the process. I write down every single step a human takes, from start to finish.",
+        "This is the mechanical engineering mindset. You cannot design a system until you understand the forces acting on it."
+      ]},
+      { h: "The Three Questions", p: [
+        "Once the process is mapped, I ask three questions:",
+        "1. Does this step actually add value? If not, delete it entirely.",
+        "2. Does this step require human judgement? If yes, keep it manual.",
+        "3. Is this step repetitive and rule-based? If yes, automate it."
+      ]},
+      { h: "The Result", p: [
+        "By following this process, you often end up with a system that is simpler than the original manual process. You do not just automate the work — you eliminate the unnecessary work entirely."
+      ]}
+    ]
+  },
+  {
+    slug: "power-of-the-critic-stage",
+    title: "How to stop AI from hallucinating: Add a critic",
+    date: "2026-07-25",
+    topics: ["AI", "Quality Assurance", "Automation"],
+    readTime: 4,
+    summary: "Generating text is easy. Generating accurate text is hard. Here is how I use a second AI stage to fact-check the first.",
+    tools: ["Gemini", "NVIDIA Nemotron"],
+    body: [
+      { p: [
+        "If you ask an AI to write a factual summary, it will do it in five seconds. But it will also confidently make up facts, dates, and statistics that sound completely plausible.",
+        "This is called hallucination, and it is the biggest barrier to using AI in production workflows."
+      ]},
+      { h: "The Critic Architecture", p: [
+        "To solve this, I never trust a single AI. I use a two-stage system: a Writer and a Critic.",
+        "The Writer generates the content. But it is not allowed to publish it. The content is passed to a separate AI stage — the Critic."
+      ]},
+      { h: "How the Critic Works", p: [
+        "The Critic is given two things: the original source material, and the text the Writer produced. Its only job is to check if the Writer's output is actually supported by the source.",
+        "If the Writer invented a number, the Critic flags it. If the Writer took a quote out of context, the Critic flags it. The Critic sends the specific line back to the Writer for revision."
+      ]},
+      { h: "The Result", p: [
+        "This creates a self-correcting loop. The AI checks its own work. By the time the content reaches a human, it has already passed a rigorous quality check.",
+        "This does not just make the content more accurate. It makes the entire system more trustworthy."
+      ]}
+    ]
+  },
+  {
+    slug: "multi-channel-distribution-engine",
+    title: "One video, four platforms: The distribution engine",
+    date: "2026-07-10",
+    topics: ["Content", "Automation"],
+    readTime: 3,
+    summary: "Why upload manually when you can build a pipeline that handles YouTube, Facebook, TikTok, and Instagram automatically?",
+    tools: ["n8n", "YouTube API", "Facebook Graph API", "Groq"],
+    body: [
+      { p: [
+        "Publishing content is easy. Publishing content consistently, across multiple platforms, with different captions and formats, is a full-time job.",
+        "I built a system to handle it automatically."
+      ]},
+      { h: "The Pipeline", p: [
+        "Everything starts with a single raw video file dropped into a Google Drive folder. The system automatically detects it, downloads it, and extracts the audio.",
+        "It then transcribes the audio using Whisper, and sends the transcript to an AI model. The AI generates four different captions: a punchy title for YouTube, a trendy caption for TikTok, an aesthetic one for Instagram, and a conversational one for Facebook."
+      ]},
+      { h: "Native Scheduling", p: [
+        "The system does not just dump the video everywhere at once. It uses the native APIs of each platform to schedule the posts.",
+        "It staggers the release times across the day. This prevents cross-platform cannibalization and ensures the content reaches the maximum audience on each platform."
+      ]},
+      { h: "The Result", p: [
+        "A completely automated distribution system. I drop a video in a folder, and it handles the rest. It is a perfect example of automating the boring stuff so you can focus on creating."
+      ]}
+    ]
+  },
+  {
+    slug: "handling-rate-limits-and-api-bans",
+    title: "How to scrape 10,000 records without getting banned",
+    date: "2026-06-22",
+    topics: ["Engineering", "Automation", "Data"],
+    readTime: 4,
+    summary: "Scraping a website is easy. Scraping it thousands of times without getting your IP blocked requires a strategy.",
+    tools: ["n8n", "JavaScript"],
+    body: [
+      { p: [
+        "When you build a high-frequency data scraper, the website you are scraping will eventually notice. They will rate-limit you, or ban your IP address entirely.",
+        "You have to build like an attacker to defend against it."
+      ]},
+      { h: "Time-Boxing", p: [
+        "The first defense is time-boxing. You cannot scrape 10,000 records in one run. n8n has a 300-second execution limit anyway.",
+        "Instead, the scraper only fetches a small slice of the data per run. It stays under the radar and stays under the timeout limit."
+      ]},
+      { h: "Fetch Locks", p: [
+        "The second defense is a fetch lock. If the scraper is already running, a second run should not start. This prevents accidental hammering of the API if the scheduler misfires."
+      ]},
+      { h: "Caching", p: [
+        "The third defense is caching. If you need to look up the same data twice, store it locally. Do not fetch it again.",
+        "In my price engine, seller profiles are cached for 6 hours. This reduced the number of API calls by over 60%."
+      ]},
+      { h: "The Takeaway", p: [
+        "Respect the server you are scraping. Being slow and steady is better than being fast and banned."
+      ]}
+    ]
+  },
+  {
+    slug: "why-i-built-a-kill-switch",
+    title: "Why every automation needs a kill switch",
+    date: "2026-06-05",
+    topics: ["Design", "Reliability", "Automation"],
+    readTime: 3,
+    summary: "When a system runs on its own, you need a way to stop it. Here is how I build safety mechanisms into every workflow.",
+    tools: ["n8n", "Design"],
+    body: [
+      { p: [
+        "When you build an automated system that runs in the background, it is easy to forget about it. It just works, quietly, in the background.",
+        "Until it doesn't. Until it starts posting the wrong content, or sending emails to the wrong list, or scraping data it shouldn't be."
+      ]},
+      { h: "The Need for a Brake", p: [
+        "Every automated system I build has a kill switch. A way to stop it immediately, without having to delete the entire workflow.",
+        "This is not just a technical requirement. It is a psychological one. Knowing that I can stop the system at any moment makes me more comfortable letting it run on its own."
+      ]},
+      { h: "How I Implement It", p: [
+        "In n8n, the kill switch is usually a simple check at the start of the workflow. It looks at a specific database flag.",
+        "If the flag is set to 'on', the workflow runs normally. If the flag is set to 'off', the workflow exits immediately.",
+        "This means I can turn the system off from anywhere, just by changing a value in a database."
+      ]},
+      { h: "The Takeaway", p: [
+        "Automation is about trust. A kill switch is how you build that trust."
+      ]}
+    ]
   }
 ];
 
@@ -989,7 +1208,7 @@ const SVG = {
   copy: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
 };
 
-/* ---------- Safe date formatting (fixes RangeError on empty/invalid dates) ---------- */
+/* ---------- Safe date formatting ---------- */
 function safeDate(dateStr) {
   if (!dateStr) return "";
   const s = String(dateStr);
@@ -1020,7 +1239,7 @@ async function copyText(t) {
   } catch (e) { return false; }
 }
 
-/* ---------- Dialog (fixes open/close race — pending close timer is cancelled on reopen) ---------- */
+/* ---------- Dialog ---------- */
 function openDlg(d) {
   if (d._closeTimer) { clearTimeout(d._closeTimer); d._closeTimer = null; }
   d.classList.remove("closing");
@@ -1111,8 +1330,6 @@ function reveal(el, delay) {
 /* ============================================================
    ROUTING
    Post URLs use the form: index-blog.html#/blog/<slug>
-   Reloading / sharing that URL resolves to the single view.
-   Bare anchors like #contact are left alone for in-page scrolling.
    ============================================================ */
 const POST_HASH_PREFIX = "#/blog/";
 
@@ -1137,7 +1354,7 @@ function goToList() {
 }
 
 /* ============================================================
-   DATA
+   DATA HELPERS
    ============================================================ */
 let allItems = POSTS.slice();
 
@@ -1277,7 +1494,6 @@ function renderList() {
     const a = document.createElement("a");
     a.href = "index-blog.html" + POST_HASH_PREFIX + it.slug;
     a.addEventListener("click", e => {
-      // Let modified clicks (new tab, new window, etc.) work normally.
       if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
       goToPost(it.slug);
@@ -1428,8 +1644,6 @@ function route() {
   recalcScroll();
 }
 
-// Only re-route when the hash changes into (or out of) a post URL.
-// Bare anchors like #contact are left alone so they don't wipe the single view.
 addEventListener("popstate", route);
 addEventListener("hashchange", () => {
   const h = location.hash;
@@ -1596,7 +1810,6 @@ function runPal(i) {
 }
 function openPalette() {
   if (pal.open) return;
-  // Clear closing state and pending timers on other dialogs before switching to the palette.
   $$("dialog").forEach(d => {
     if (d.open && d !== pal) {
       if (d._closeTimer) { clearTimeout(d._closeTimer); d._closeTimer = null; }
