@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /index-404.html
+
+Sitemap: https://lanexbuilds.com/sitemap.xml
