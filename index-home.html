@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
+<!-- Calendly CSS -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script>
 (function(){
   var d = document.documentElement;
@@ -481,6 +483,54 @@ html:not(.js) .block-head::before{transform:scaleX(1)}
 }
 
 /* ============================================================
+   HOW IT WORKS (NEW)
+   ============================================================ */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+.how-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  text-align: center;
+  position: relative;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.how-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(10,31,51,.2);
+}
+.how-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--warm-soft);
+  color: var(--warm);
+  font-weight: 800;
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+}
+.how-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.how-card p {
+  font-family: var(--serif);
+  color: var(--ink-2);
+  font-size: 16px;
+  line-height: 1.55;
+}
+@media (max-width: 820px) {
+  .how-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    PROJECT CARDS (home preview)
    ============================================================ */
 .project-grid{
@@ -524,6 +574,7 @@ html:not(.js) .block-head::before{transform:scaleX(1)}
   font-family:var(--serif);font-size:16.5px;line-height:1.55;color:var(--ink-2);
   flex:1;margin-bottom:24px;
 }
+.pc-summary strong { color: var(--ink); font-weight: 600; }
 .pc-more{
   display:inline-flex;align-items:center;gap:8px;
   font-size:13.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
@@ -959,17 +1010,19 @@ html.nm .stage-in{transform:none!important;opacity:1!important}
       <span aria-hidden="true"><span class="char" style="--c:0">L</span><span class="char" style="--c:1">a</span><span class="char" style="--c:2">n</span><span class="char sp" style="--c:3"> </span><span class="char" style="--c:4">M</span><span class="char" style="--c:5">i</span><span class="char" style="--c:6">s</span><span class="char" style="--c:7">l</span><span class="char" style="--c:8">a</span><span class="char" style="--c:9">n</span><span class="char" style="--c:10">g</span></span>
     </h1>
     <span class="rule" aria-hidden="true"></span>
-    <p class="kicker">Mechanical engineering student</p>
+    <p class="kicker">Workflow Automation &amp; Systems Architect</p>
     <p class="role">
       <span class="visually-hidden">Manual work, turned into automated workflows.</span>
       <span aria-hidden="true">Manual work, turned into automated <span class="tw"><span id="tw-text">workflows.</span><span class="caret"></span></span></span>
     </p>
     <div class="cta-row">
-      <a class="cta primary" href="#contact">
-        Let's talk
+      <a class="cta primary" href="https://lanexbuilds.gumroad.com/" target="_blank" rel="noopener">
+        Book a 1-on-1 Automation Audit
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <a class="cta ghost" href="index-projectlead.html">View projects</a>
+      <a class="cta ghost" href="#" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/traderyam/new-meeting'});return false;">
+        Book a Free Discovery Call
+      </a>
     </div>
   </div>
   <a class="cue" href="#process"><i aria-hidden="true"></i><span>Scroll</span></a>
@@ -1020,48 +1073,98 @@ html.nm .stage-in{transform:none!important;opacity:1!important}
   </div>
 </section>
 
+<!-- ============================================================
+     HOW IT WORKS (NEW)
+     ============================================================ -->
+<section class="block" id="how-it-works" aria-labelledby="how-h">
+  <div class="block-head">
+    <div>
+      <span class="eyebrow">01 — Process</span>
+      <h2 id="how-h">How it works</h2>
+    </div>
+    <p>Three simple steps to take your manual processes and turn them into automated systems.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">1</div>
+      <h3>Book an Audit</h3>
+      <p>We sit down for a 1-on-1 session where I analyze your current workflows and identify exactly where you are losing time.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">2</div>
+      <h3>Map Your Workflow</h3>
+      <p>I break down your process step-by-step to identify which parts require human judgement and which can be fully automated.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">3</div>
+      <h3>Get a Custom Blueprint</h3>
+      <p>You receive a detailed blueprint of the automated system, including the tools required and the projected time savings.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPANDED PROJECTS SECTION (NEW)
+     ============================================================ -->
 <section class="block" id="projects-preview" aria-labelledby="projects-h">
   <div class="block-head">
     <div>
-      <span class="eyebrow">01 — Selected work</span>
+      <span class="eyebrow">02 — Selected work</span>
       <h2 id="projects-h">Projects</h2>
     </div>
-    <p>Three systems I designed and built. Each one automates a process end to end, and keeps a person only on the decisions that matter.</p>
+    <p>Five systems I designed and built. Here are the top three that delivered the clearest business value.</p>
   </div>
   <div class="project-grid">
-    <a class="project-card" href="index-projectlead.html#video-pipeline">
+    <!-- Project 1: Lead Gen -->
+    <a class="project-card" href="index-casestudies.html#zero-cost-lead-generation-engine">
       <div class="pc-head">
         <span class="pc-num">01</span>
         <span class="pc-badge">Live</span>
       </div>
-      <h3 class="pc-title">Research-to-video production pipeline</h3>
-      <p class="pc-summary">One topic form in, one rendered and quality-checked video out. Seven stages, five tools, one kill switch.</p>
+      <h3 class="pc-title">Local Lead Generation Engine</h3>
+      <p class="pc-summary">
+        <strong>Problem:</strong> A local business was manually searching for prospects, visiting websites, and writing outreach emails—taking hours every week.<br><br>
+        <strong>Solution:</strong> Built an n8n workflow that captures prospects, enriches them, scores their fit, and drafts personalized emails.<br><br>
+        <strong>Result:</strong> Saved 5+ hours per week and completely eliminated manual data entry errors.
+      </p>
       <span class="pc-more">
-        See how it works
+        Read the full case study
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
-    <a class="project-card" href="index-projectlead.html#lead-engine">
+
+    <!-- Project 2: Price Engine -->
+    <a class="project-card" href="index-casestudies.html#high-frequency-market-scraper">
       <div class="pc-head">
         <span class="pc-num">02</span>
         <span class="pc-badge">Live</span>
       </div>
-      <h3 class="pc-title">Local lead generation and outreach engine</h3>
-      <p class="pc-summary">Finds, studies and scores local businesses, then drafts the first email. Runs at zero cost, with a person approving every send.</p>
+      <h3 class="pc-title">High-Frequency Market Analyzer</h3>
+      <p class="pc-summary">
+        <strong>Problem:</strong> Monitoring a marketplace for pricing anomalies and genuine seller trust is impossible to do manually.<br><br>
+        <strong>Solution:</strong> Built a system that processes 10,000+ listings per run, scores seller trust, and calculates dynamic pricing.<br><br>
+        <strong>Result:</strong> Accurate market medians calculated despite up to 40% noisy/bait data, with automated alerts for human review.
+      </p>
       <span class="pc-more">
-        See how it works
+        Read the full case study
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
-    <a class="project-card" data-state="wip" href="index-projectlead.html#blog-engine">
+
+    <!-- Project 3: Auto-Poster -->
+    <a class="project-card" href="index-casestudies.html#multi-channel-distribution-engine">
       <div class="pc-head">
         <span class="pc-num">03</span>
-        <span class="pc-badge">In progress</span>
+        <span class="pc-badge">Live</span>
       </div>
-      <h3 class="pc-title">Auto-publishing case study and blog engine</h3>
-      <p class="pc-summary">The system that keeps this portfolio growing without manual updates. Slack approval, 48-hour auto-publish, Notion mirror.</p>
+      <h3 class="pc-title">Multi-Platform Content Auto-Poster</h3>
+      <p class="pc-summary">
+        <strong>Problem:</strong> Publishing content across YouTube, Facebook, and Blogger requires different captions and formatting, taking hours.<br><br>
+        <strong>Solution:</strong> Built a pipeline using Whisper, Groq, and NVIDIA Nemotron to auto-generate captions, blog posts, and images.<br><br>
+        <strong>Result:</strong> 100% automated distribution with native scheduling and an automated SEO quality gate.
+      </p>
       <span class="pc-more">
-        See how it works
+        Read the full case study
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </span>
     </a>
@@ -1071,7 +1174,7 @@ html.nm .stage-in{transform:none!important;opacity:1!important}
 <section class="block" id="writing-preview" aria-labelledby="writing-h">
   <div class="block-head">
     <div>
-      <span class="eyebrow">02 — Recent writing</span>
+      <span class="eyebrow">03 — Recent writing</span>
       <h2 id="writing-h">Case studies &amp; blog</h2>
     </div>
     <p>In-depth case studies of workflows I analysed and automated, plus short notes on what I learn while building them.</p>
@@ -1086,7 +1189,7 @@ html.nm .stage-in{transform:none!important;opacity:1!important}
 <section class="block" id="contact" aria-labelledby="contact-h">
   <div class="block-head">
     <div>
-      <span class="eyebrow">03 — Get in touch</span>
+      <span class="eyebrow">04 — Get in touch</span>
       <h2 id="contact-h">Contact</h2>
     </div>
     <p>Open to automation projects, collaborations and internships.</p>
@@ -1097,7 +1200,12 @@ html.nm .stage-in{transform:none!important;opacity:1!important}
     <div><span class="label">School</span><span class="val">Technological Institute of the Philippines</span></div>
     <div class="wide">
       <div class="contacts" id="contacts"></div>
-      <button type="button" class="pillb solid" id="tb-talk">Let's talk</button>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="cta primary" href="#" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/traderyam/new-meeting'});return false;">
+          Book a Free 15-Min Discovery Call
+        </a>
+        <button type="button" class="pillb solid" id="tb-talk">Let's talk</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1186,13 +1294,17 @@ html.nm .stage-in{transform:none!important;opacity:1!important}
   <p class="pal-foot">Up and down to move, Enter to open, Esc to close.</p>
 </dialog>
 
+<!-- Calendly Script -->
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
 <script>
 /* ============================================================
    EDIT — contact
    ============================================================ */
 const CONTACT = {
   email: "exlanmislang@gmail.com",
-  discord: "",
+  linkedin: "https://www.linkedin.com/in/lan-exequiel-mislang-11b96027a/?isSelfProfile=true",
+  discord: "lanexbuilds",
   whatsapp: "",
   telegram: ""
 };
@@ -1213,7 +1325,7 @@ const CASE_STUDIES = [
     kind: "case_study",
     group: "Marketing & Agencies",
     summary: "How a manual prospecting routine became a local, zero-cost workflow that does the research and drafting and leaves the sending decision to a person.",
-    tools: ["n8n", "Google Sheets", "LLM"]
+    tools: ["n8n", "Google Sheets", "Ollama"]
   },
   {
     title: "Cutting a research workflow from hours to minutes",
@@ -1343,9 +1455,7 @@ async function copyText(t) {
   } catch (e) { return false; }
 }
 
-/* ---------- Dialog ----------
-   FIX: cancel any pending close timer when re-opening, so a fast
-   close → open sequence never lets the old timer close the fresh dialog. */
+/* ---------- Dialog ---------- */
 function openDlg(d) {
   if (d._closeTimer) { clearTimeout(d._closeTimer); d._closeTimer = null; }
   d.classList.remove("closing");
@@ -1453,11 +1563,7 @@ addEventListener("resize", () => { recalcScroll(); onScroll(); }, { passive: tru
 totop.addEventListener("click", () => scrollTo({ top: 0, behavior: motionOK() ? "smooth" : "auto" }));
 function gotoEl(el) { if (el) el.scrollIntoView({ behavior: motionOK() ? "smooth" : "auto", block: "start" }); }
 
-/* ---------- Reveal ----------
-   FIX: previously the cleanup removed BOTH "rv" and "in", which reverted
-   .block-head::before back to scaleX(0) — the section rule line vanished
-   ~1.2s after it drew. Now we only drop "rv" and keep "in" so the drawn
-   line stays put. */
+/* ---------- Reveal ---------- */
 const rvIO = "IntersectionObserver" in window ? new IntersectionObserver(es => {
   es.forEach(e => {
     if (!e.isIntersecting) return;
@@ -1682,7 +1788,6 @@ function renderWriting(items) {
     const li = node("li");
     const a = node("a"); a.href = itemUrl(it);
     const head = node("div", "we-head");
-    // FIX: safe date formatting so a null/invalid date never throws a RangeError.
     head.append(node("time", "", safeFormatDate(it.date)));
     const kind = it.kind === "blog" ? "Blog" : "Case study";
     head.append(node("span", "we-kind " + (it.kind === "blog" ? "blog" : ""), kind));
@@ -1731,6 +1836,7 @@ const cd = $("#contactdlg"), cdBody = $("#cd-body");
 function contactRows() {
   const rows = [];
   if (CONTACT.email) rows.push({ label: "Email", text: CONTACT.email, href: "mailto:" + CONTACT.email, copy: CONTACT.email, copyMsg: "Email copied" });
+  if (CONTACT.linkedin) rows.push({ label: "LinkedIn", text: "Connect on LinkedIn", href: CONTACT.linkedin, ext: true, copy: CONTACT.linkedin, copyMsg: "LinkedIn URL copied" });
   if (CONTACT.discord) rows.push({ label: "Discord", text: CONTACT.discord, copy: CONTACT.discord, copyMsg: "Discord username copied" });
   if (CONTACT.whatsapp) rows.push({ label: "WhatsApp", text: "+" + CONTACT.whatsapp, href: "https://wa.me/" + CONTACT.whatsapp, ext: true });
   if (CONTACT.telegram) rows.push({ label: "Telegram", text: "@" + CONTACT.telegram, href: "https://t.me/" + CONTACT.telegram, ext: true });
@@ -1822,7 +1928,7 @@ function buildPalette() {
     ["Resume", "index-resume.html"]
   ].forEach(([l, url]) => out.push({ k: "Page", l, kw: "navigate page " + l, run: () => { location.href = url; } }));
   // Sections on this page
-  [["Process demo", "process"], ["Contact", "contact"]].forEach(([l, id]) => out.push({
+  [["Process demo", "process"], ["How it works", "how-it-works"], ["Contact", "contact"]].forEach(([l, id]) => out.push({
     k: "Go to", l, kw: "section " + l, run: () => gotoEl(document.getElementById(id))
   }));
   // Recent items
@@ -1888,8 +1994,6 @@ function runPal(i) {
 }
 function openPalette() {
   if (pal.open) return;
-  // FIX: clear closing state and pending close timers on any other dialog
-  // before switching to the palette.
   $$("dialog").forEach(d => {
     if (d.open && d !== pal) {
       if (d._closeTimer) { clearTimeout(d._closeTimer); d._closeTimer = null; }
@@ -1906,8 +2010,6 @@ palQ.addEventListener("keydown", e => {
   if (e.key === "ArrowDown") { e.preventDefault(); selPal(palSel + 1); }
   else if (e.key === "ArrowUp") { e.preventDefault(); selPal(palSel - 1); }
   else if (e.key === "Home") { e.preventDefault(); selPal(0); }
-  // FIX: previously selPal(999) — which only lands on the last item for
-  // some list lengths. Now we go straight to the true last index.
   else if (e.key === "End") { e.preventDefault(); if (lis.length) selPal(lis.length - 1); }
   else if (e.key === "Enter") { e.preventDefault(); runPal(palSel); }
 });
